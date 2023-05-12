@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title>Document</title>
+    <style>
+        .container {
+            text-align: center;
+            direction: rtl;
+        }
+
+        .card {
+          box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.356);
+          display: inline-block;
+          width: 15%;
+          max-height: 400px;
+          padding: 2%;
+          margin: 2%;
+        }
+
+        img {
+            width: 50%;
+            height: 100px;
+        }
+
+        h1 {
+            font-size: 15px;
+            height: 50px;
+        }
+
+        p {
+            height: 50px;
+        }
+        
+        .price {
+            color: teal;
+        }
+
+        button {
+            width: 80%;
+            height: 50px;
+            background-color: cornflowerblue;
+            color: black;
+            margin: 20px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container" id="phones-cards">
+        
+    </div>
+
+    <script>
+        let products = null;
+
+        const phonesCardsElement = document.getElementById('phones-cards');
+
+        async function getAndShowCards() {
+            await axios.get('https://fakestoreapi.com/products').then((response) => {
+                console.log(response.data);
+                products = response.data;
+            })
+        
+            for (let i = 0; i < products.length; i++) {
+              phonesCardsElement.innerHTML += '<div class="card" ><img src="' + products[i].image + '" alt="sam"><h1>' + products[i].title + '</h1><p class="price">' + products[i].price * 50000 + ' تومان</p><p>' + products[i].category + '</p><button>افزودن به سبد خرید</button></div>'
+            }
+        }
+
+        getAndShowCards();
+        
+    </script>
+</body>
+</html>
